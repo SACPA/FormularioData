@@ -109,11 +109,6 @@
         <h2>Formulario de Datos de Estudiantes</h2>
         <form id="studentForm">
             <div class="form-group">
-                <label for="student_id">ID del Estudiante:</label>
-                <input type="text" id="student_id" name="Student_ID" required>
-            </div>
-
-            <div class="form-group">
                 <label for="age">Edad:</label>
                 <input type="number" id="age" name="Age" min="10" max="100" required>
             </div>
@@ -123,7 +118,6 @@
                 <div class="radio-group">
                     <label><input type="radio" name="Gender" value="Male" required> Masculino</label>
                     <label><input type="radio" name="Gender" value="Female"> Femenino</label>
-                    <label><input type="radio" name="Gender" value="Other"> Otro</label>
                 </div>
             </div>
 
@@ -151,7 +145,18 @@
 
             <div class="form-group">
                 <label for="most_used_platform">Plataforma Más Usada:</label>
-                <input type="text" id="most_used_platform" name="Most_Used_Platform" required>
+                <select id="most_used_platform" name="Most_Used_Platform" required>
+                    <option value="">Seleccione...</option>
+                    <option value="Facebook">Facebook</option>
+                    <option value="WhatsApp">WhatsApp</option>
+                    <option value="YouTube">YouTube</option>
+                    <option value="TikTok">TikTok</option>
+                    <option value="Instagram">Instagram</option>
+                    <option value="X (Twitter)">X (Twitter)</option>
+                    <option value="Telegram">Telegram</option>
+                    <option value="Pinterest">Pinterest</option>
+                    <option value="Other">Otra / No aplica</option>
+                </select>
             </div>
 
             <div class="form-group">
@@ -174,7 +179,11 @@
 
             <div class="form-group">
                 <label for="relationship_status">Estado de Relación:</label>
-                <input type="text" id="relationship_status" name="Relationship_Status" required>
+                <select id="relationship_status" name="Relationship_Status" required>
+                    <option value="">Seleccione...</option>
+                    <option value="Single">Soltero(a)</option>
+                    <option value="In a Relationship">En una relación</option>
+                </select>
             </div>
 
             <div class="form-group">
@@ -203,7 +212,7 @@
 
     <script>
         // *** IMPORTANTE: Reemplaza esta URL con la URL de tu backend desplegado ***
-        const BACKEND_URL = 'https://backend-app-7cco.onrender.com'; // Ejemplo: 'https://tu-app-flask.herokuapp.com'
+        const BACKEND_URL = 'TU_URL_DEL_BACKEND_AQUI'; // Ejemplo: 'https://tu-app-flask.onrender.com'
 
         document.getElementById('studentForm').addEventListener('submit', async function(event) {
             event.preventDefault(); // Evita el envío por defecto del formulario
@@ -212,11 +221,10 @@
             const formData = new FormData(form);
             const responseMessage = document.getElementById('responseMessage');
 
-            // Convertir FormData a un objeto JSON
             const data = {};
             formData.forEach((value, key) => {
                 // Asegurar que los números se envíen como números
-                if (!isNaN(parseFloat(value)) && isFinite(value) && key !== 'Student_ID') { // Student_ID puede contener caracteres no numéricos
+                if (!isNaN(parseFloat(value)) && isFinite(value)) { // Student_ID ya no se maneja aquí
                     data[key] = parseFloat(value);
                 } else {
                     data[key] = value;
@@ -263,7 +271,7 @@
                     const a = document.createElement('a');
                     a.style.display = 'none';
                     a.href = url;
-                    a.download = 'student_data.csv'; // Nombre del archivo CSV en inglés
+                    a.download = 'student_data.csv';
                     document.body.appendChild(a);
                     a.click();
                     window.URL.revokeObjectURL(url);
